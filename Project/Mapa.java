@@ -62,7 +62,7 @@ public class Mapa extends MapView {
 
         MapViewOptions options = new MapViewOptions();
         options.importPlaces();
-        options.setApiKey("AIzaSyBK2hBPZRWRP1p2m8tA7dj2ujV1HApML-g");
+        options.setApiKey();
         final Mapa mapView = new Mapa(options);
         JFrame frame = new JFrame("Iasi - retea 5G");
 
