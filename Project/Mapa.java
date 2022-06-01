@@ -151,7 +151,7 @@ public class Mapa extends MapView {
 		
 		try {
             Robot robot = new Robot();
-            robot.delay(10000);
+            robot.delay(20000);
             Rectangle rectangle = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
             BufferedImage bufferedImage = robot.createScreenCapture(rectangle);
             File file = new File("screen-cachgcpture.png");
