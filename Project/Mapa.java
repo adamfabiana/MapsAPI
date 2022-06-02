@@ -1,3 +1,6 @@
+/**
+ * trebuie importata libraria jxmaps-win-1.3.2.jar
+ */
 package Project;
 
 import java.awt.AWTException;
@@ -37,32 +40,47 @@ import com.teamdev.jxmaps.MapTypeControlOptions;
 import com.teamdev.jxmaps.MapViewOptions;
 import com.teamdev.jxmaps.Marker;
 import com.teamdev.jxmaps.swing.MapView;
-
+/**
+ * clasa Mapview este mostenita din clasa Mapa
+ */
 public class Mapa extends MapView {
 
-	/**
-	 * 
-	 */
 	
+/**
+ * Am declarat un identificator de versiune ce are ca scop sa verifice 
+ * daca avem o clasa Serializable(isi poate converti starea intr-un flux 
+ * de octeti, astel incat fluxul de octeti sa se poata reconverti intr 
+ * o copie a obiectului).Deserializarea foloseste acest identificator pentru a 
+ * se asigura ca o clasa incarcata corespunde exact unui obiect serializat.
+ */
 	private static final long serialVersionUID = 1L;
-
+/**
+ * 
+ * 
+ * permite setarea vizualizarii mapei
+ */
 	public Mapa(MapViewOptions options) {
-		
-		
+/**
+ * face referire la clasa parinte
+ */
+
 		super(options);
+		/**
+		 * initializare harta
+		 */
 		 setOnMapReadyHandler(new MapReadyHandler() {
 	            @Override
 	            public void onMapReady(MapStatus status) {
 	                if (status == MapStatus.MAP_STATUS_OK) {
 	                     Map map = getMap();
 	                    map.setZoom(13.0);
-	                    
+
 	                    @SuppressWarnings("deprecation")
 						GeocoderRequest request = new GeocoderRequest(map);
 	                    request.setAddress("Iasi, Romania");
 
-	          
-	                    
+
+
 	                    getServices().getGeocoder().geocode(request, new GeocoderCallback(map) {
 	                        @Override
 	                        public void onComplete(GeocoderResult[] result, GeocoderStatus status) {
@@ -70,39 +88,46 @@ public class Mapa extends MapView {
 	                                map.setCenter(result[0].getGeometry().getLocation());
 	                                /*Marker marker = new Marker(map);
 	                                marker.setPosition(result[0].getGeometry().getLocation());
-
 	                                final InfoWindow window = new InfoWindow(map);
 	                                window.setContent("Campus Tudor Vladimirescu Camin T17!");
 	                                window.open(map, marker);*/
-	                                
+/**
+ * cere coordonatele din fisier
+ */
 	                                String file_path="src/file.txt";
-	                            
+
 	                              ArrayList<String[]> coords = null;
 	                              try {
                               	coords = read_coordinates(file_path);
-                              	
+
 	                              	for(String[] element:coords){
 	                              	   Circle circle = new Circle(map);
 		                              	float x = Float.parseFloat(element[0]);
 		                              	float y = Float.parseFloat(element[1]);
+		                              	/**
+		                              	 * seteaza centrul in functie de long si lat
+		                              	 */
 	                         		circle.setCenter(new LatLng(x,y));
+	                         		/**
+	                         		 * transformare in radiani
+	                         		 */
 	                         		circle.setRadius(30);
 	                         		circle.setVisible(true);
 	                         		//circle.setOptions(settingsCircle);
-	                         		
+
 	                         		@SuppressWarnings("deprecation")
 									CircleOptions co = new CircleOptions(map);
 	                         		co.setFillColor("#B713EE");
 	                         		co.setFillOpacity(0.35);
 	                         		co.setStrokeColor("#B713EE");
-	                         		
+
 	                         		circle.setOptions(co);
-	                         	
-	                         		
-	                         		
-	                         		
-	                              	    
-	                              	       
+
+
+
+
+
+
 	                              	}
 	                              } catch (IOException e) {
 	                              	e.printStackTrace();
@@ -111,21 +136,26 @@ public class Mapa extends MapView {
 	                            }
 	                        }
 	                    });
-	                    
+
 	                }}
-	        
+
 
 		});
-		 
-		 
-		 
-		
-	}
 
+
+
+
+	}
+/**
+ * citire fisier si stocare intr un array
+ * @param file_path
+ * @return
+ * @throws IOException
+ */
     public static ArrayList<String[]> read_coordinates(String file_path) throws IOException{
     	BufferedReader br= new BufferedReader(new FileReader(file_path));
     	ArrayList<String[]> result = new ArrayList<String[]>();
-  
+
     String st;
     // Condition holds true till
     // there is character in a string
@@ -140,10 +170,7 @@ public class Mapa extends MapView {
 
 		MapViewOptions options = new MapViewOptions();
 		options.importPlaces();
-		
-		// adaugare cheie
-		options.setApiKey("");
-		
+		options.setApiKey("AIzaSyBK2hBPZRWRP1p2m8tA7dj2ujV1HApML-g");
 		final Mapa mapView = new Mapa(options);
 		JFrame frame = new JFrame("Iasi - retea 5G");
 				frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -151,8 +178,14 @@ public class Mapa extends MapView {
 		frame.setSize(700, 500);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
-		
+
 		try {
+			/**
+			 * Se creeaza un robot cu ajutorul caruia se face printscreenul ,de asemenea foloseste un obiect rectangle 
+			 * care poate fi modificat astfel incat sa printeze doar o parte a 
+			 * ecranului,iar robot.delay e folosit pentru a temporiza durata printscreenului 
+			 * adica dupa cat timp face printscreen
+			 */
             Robot robot = new Robot();
             robot.delay(10000);
             Rectangle rectangle = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
@@ -160,19 +193,19 @@ public class Mapa extends MapView {
             File file = new File("screen-cachgcpture.png");
             boolean status = ImageIO.write(bufferedImage, "png", file);
             System.out.println("Screen Captured ? " + status + " File Path:- " + file.getAbsolutePath());
- 
+
         } catch (AWTException | IOException ex) {
             System.err.println(ex);
-		     
-		
-		 
-		
-		
-		
-		
-		
 
-		 
+
+
+
+
+
+
+
+
+
 
 	}
 
