@@ -69,7 +69,7 @@ class onMapReadyHandler_test {
     void testInvalidOnCompleteDelay() throws AWTException {
 		MapViewOptions options = new MapViewOptions();
 		options.importPlaces();
-		options.setApiKey("AIzaSyBK2hBPZRWRP1p2m8tA7dj2ujV1HApML-g");
+		options.setApiKey("");
 		TestMapa = new Mapa(options);
 	    Robot robot = new Robot();
 	    robot.delay(0);
@@ -88,7 +88,7 @@ class onMapReadyHandler_test {
     void testValidOnCompleteDelay() throws AWTException {
 		MapViewOptions options = new MapViewOptions();
 		options.importPlaces();
-		options.setApiKey("AIzaSyBK2hBPZRWRP1p2m8tA7dj2ujV1HApML-g");
+		options.setApiKey("");
 		TestMapa = new Mapa(options);
 	    Robot robot2 = new Robot();
 	    robot2.delay(5000);
